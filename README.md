@@ -8,7 +8,7 @@
 + frontend: Thymeleaf, only html,css,bootstrap
 + spring security
 + spring data jpa
-+ h2 database
++ mysql database
 + google oauth2
 
 ### Description:
