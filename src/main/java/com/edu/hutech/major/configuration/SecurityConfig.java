@@ -1,6 +1,6 @@
 package com.edu.hutech.major.configuration;
 
-import com.edu.hutech.major.service.CustomUserDetailService;
+import com.edu.hutech.major.service.impl.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,52 +17,63 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     GoogleOAuth2SuccessHandler googleOAuth2SuccessHandler;
+
     @Autowired
     CustomUserDetailService customUserDetailService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                //permit all url
                 .authorizeRequests()
-                .antMatchers("/", "/shop/**", "/forgotpassword", "/register").permitAll()
+                .antMatchers("/", "/shop/**", "/forgotpassword", "/register", "/login").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
 
-                .defaultSuccessUrl("/")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .failureUrl("/login?error= true")
+                //google authen
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
                 .successHandler(googleOAuth2SuccessHandler)
+
+                //check login
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error= true")
+
+                //when you logout
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
+
+                //declare exeption
                 .and()
                 .exceptionHandling()
+
+                //csrf to create token with thymeleaf
                 .and()
                 .csrf()
                 .disable();
         http.headers().frameOptions().disable();
-    }
+    }//config authenication & authorization
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
-    }
+    }//ma hoa password
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailService);
-    }
+    }//chon model quan li thong tin account
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -72,5 +83,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/productImages/**",
                 "/css/**",
                 "/js/**");
-    }
+    }//bo qua authen cac package nay
 }

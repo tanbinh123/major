@@ -20,4 +20,5 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
-}
+
+}//create table mapping trong db

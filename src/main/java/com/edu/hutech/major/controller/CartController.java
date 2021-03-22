@@ -20,12 +20,13 @@ public class CartController {
         model.addAttribute("total", GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
         model.addAttribute("cart", GlobalData.cart);
         return "cart";
-    }
+    }//page cart
+
     @GetMapping("/addToCart/{id}")
     public String addToCart(@PathVariable int id){
         GlobalData.cart.add(productService.getProductById(id).get());
         return "redirect:/shop";
-    }
+    }//click add from page viewProduct
 
     @GetMapping("/cart/removeItem/{index}")
     public String cartItemRemove(@PathVariable int index){

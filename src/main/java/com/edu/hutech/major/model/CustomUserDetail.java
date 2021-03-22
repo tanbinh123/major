@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomUserDetail extends User implements UserDetails {
     public CustomUserDetail(User user){
         super(user);
-    }
+    }//ke thua lai model user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorityList = new ArrayList<>();

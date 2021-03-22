@@ -25,5 +25,4 @@ public class Product {
 
     private String imageName;
 
-
-}
+}//create table mapping trong db

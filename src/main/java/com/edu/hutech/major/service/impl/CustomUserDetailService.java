@@ -1,4 +1,4 @@
-package com.edu.hutech.major.service;
+package com.edu.hutech.major.service.impl;
 
 import com.edu.hutech.major.model.CustomUserDetail;
 import com.edu.hutech.major.model.User;
@@ -15,8 +15,10 @@ import java.util.Optional;
 public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         Optional<User> user = userRepository.findUserByEmail((email));
         user.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 

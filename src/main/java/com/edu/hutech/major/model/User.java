@@ -36,6 +36,9 @@ public class User {
             )
     private List<Role> roles;
 
+    //custom lai constructor
+    public User(){}
+
     public User(User user) {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -43,7 +46,5 @@ public class User {
         this.password = user.getPassword();
         this.roles = user.getRoles();
     }
-    public User(){
 
-    }
-}
+}//create table mapping trong db
