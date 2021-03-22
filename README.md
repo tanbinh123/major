@@ -33,3 +33,5 @@ trưng bày sản phẩm, tạo giỏ hàng, thanh toán hóa đơn
 + paging
 + search engine
 
+### Link Video
+https://www.youtube.com/watch?v=w7V1aT6egU4&t=23s
